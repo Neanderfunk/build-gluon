@@ -14,16 +14,27 @@ else
   (cd site-ffnef; git pull)
 fi
 
+
 cd gluon
-make update
-make GLUON_TARGET=ar71xx-generic clean # not mentioned in doc
+
+if [ -d ../site-ffnef/ffnef-met ]; then
+  default_site=../site-ffnef/ffnef-met
+else
+  for sitedir in ../site-ffnef/*; do
+     default_site=$sitedir
+     break
+  done
+fi
 
 for sitedir in ../site-ffnef/*; do
-  make GLUON_TARGET=ar71xx-generic \
-    GLUON_SITEDIR=$sitedir GLUON_OUTPUTDIR=$(basename $sitedir) \
-    GLUON_BRANCH=experimental
- make manifest GLUON_BRANCH=experimental \
-    GLUON_SITEDIR=$sitedir GLUON_OUTPUTDIR=$(basename $sitedir)
+  outputdir=out/$(basename $sitedir)
+  mkdir -p $outputdir
+  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$outputdir GLUON_BRANCH=experimental"
+  echo $params
+  make update $params
+  #make GLUON_TARGET=ar71xx-generic $params clean V=s # not mentioned in doc
+  make GLUON_TARGET=ar71xx-generic $params V=s
+  make manifest $params
 done
 #contrib/sign.sh $SECRETKEY images/sysupgrade/experimental.manifest
 
