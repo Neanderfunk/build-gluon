@@ -4,19 +4,27 @@ set -e
 
 if [ ! -d gluon ]; then
   git clone https://github.com/freifunk-gluon/gluon
-  cd gluon
-  mkdir site
-  git clone https://github.com/Neanderfunk/site-ffnef site
 else
-  cd gluon
+  (cd gluon; git pull)
 fi
 
-git pull
-(cd site && git pull)
+if [ ! -d site-ffnef ]; then
+  git clone https://github.com/Neanderfunk/site-ffnef
+else
+  (cd site-ffnef; git pull)
+fi
+
+cd gluon
 make update
-#make clean
-make -j1 GLUON_TARGET=ar71xx-generic GLUON_BRANCH=experimental
-#make manifest GLUON_BRANCH=experimental
+make GLUON_TARGET=ar71xx-generic clean # not mentioned in doc
+
+for sitedir in ../site-ffnef/*; do
+  make GLUON_TARGET=ar71xx-generic \
+    GLUON_SITEDIR=$sitedir GLUON_OUTPUTDIR=$(basename $sitedir) \
+    GLUON_BRANCH=experimental
+ make manifest GLUON_BRANCH=experimental \
+    GLUON_SITEDIR=$sitedir GLUON_OUTPUTDIR=$(basename $sitedir)
+done
 #contrib/sign.sh $SECRETKEY images/sysupgrade/experimental.manifest
 
 #rm -rf /where/to/put/this/experimental
