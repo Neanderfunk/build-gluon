@@ -14,6 +14,11 @@ else
   (cd site-ffnef; git pull)
 fi
 
+if [ ! -d site-ffho ]; then
+  git clone https://git.c3pb.de/freifunk-pb/site-ffho.git
+else
+  (cd site-ffnef; git pull)
+fi
 
 cd gluon
 
@@ -26,7 +31,10 @@ else
   done
 fi
 
+
 for sitedir in ../site-ffnef/*; do
+  cp -a site-ffho/modules $sitedir
+
   outputdir=out/$(basename $sitedir)
   mkdir -p $outputdir
   params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$outputdir GLUON_BRANCH=experimental"
