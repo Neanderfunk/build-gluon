@@ -11,7 +11,7 @@ fi
 if [ ! -d site-ffnef ]; then
   git clone https://github.com/Neanderfunk/site-ffnef
 else
-  (cd site-ffnef; rm -f */modules; git pull)
+  (cd site-ffnef; git pull)
 fi
 
 if [ ! -d site-ffho ]; then
@@ -33,7 +33,7 @@ fi
 
 
 for sitedir in ../site-ffnef/*; do
-  cat ../site-ffho/modules >> $sitedir/modules
+  cat $sitedir/modules.incomplete ../site-ffho/modules >> $sitedir/modules
 
   outputdir=out/$(basename $sitedir)
   mkdir -p $outputdir
