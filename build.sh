@@ -17,7 +17,7 @@ fi
 if [ ! -d site-ffho ]; then
   git clone https://git.c3pb.de/freifunk-pb/site-ffho.git
 else
-  (cd site-ffnef; git pull)
+  (cd site-ffho; git pull)
 fi
 
 cd gluon
@@ -33,7 +33,7 @@ fi
 
 
 for sitedir in ../site-ffnef/*; do
-  cat site-ffho/modules >> $sitedir/modules
+  cat ../site-ffho/modules >> $sitedir/modules
 
   outputdir=out/$(basename $sitedir)
   mkdir -p $outputdir
