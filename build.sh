@@ -33,7 +33,8 @@ fi
 
 
 for sitedir in ../site-ffnef/*; do
-  cat $sitedir/modules.incomplete ../site-ffho/modules >> $sitedir/modules
+  cp $sitedir/modules.incomplete $sitedir/modules
+  grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
 
   outputdir=out/$(basename $sitedir)
   mkdir -p $outputdir
