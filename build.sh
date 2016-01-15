@@ -11,13 +11,13 @@ fi
 if [ ! -d site-ffnef ]; then
   git clone https://github.com/Neanderfunk/site-ffnef
 else
-  (cd gluon; git reset --hard; git pull)^C
+  (cd gluon; git reset --hard; git pull)
 fi
 
 if [ ! -d site-ffho ]; then
   git clone https://git.c3pb.de/freifunk-pb/site-ffho.git
 else
-  (cd gluon; git reset --hard; git pull)^C
+  (cd gluon; git reset --hard; git pull)
 fi
 
 cd gluon
