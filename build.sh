@@ -5,19 +5,19 @@ set -e
 if [ ! -d gluon ]; then
   git clone https://github.com/freifunk-gluon/gluon
 else
-  (cd gluon; git pull)
+  (cd gluon; git reset --hard; git pull)
 fi
 
 if [ ! -d site-ffnef ]; then
   git clone https://github.com/Neanderfunk/site-ffnef
 else
-  (cd site-ffnef; git pull)
+  (cd gluon; git reset --hard; git pull)^C
 fi
 
 if [ ! -d site-ffho ]; then
   git clone https://git.c3pb.de/freifunk-pb/site-ffho.git
 else
-  (cd site-ffho; git pull)
+  (cd gluon; git reset --hard; git pull)^C
 fi
 
 cd gluon
