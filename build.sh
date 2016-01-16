@@ -11,26 +11,16 @@ fi
 if [ ! -d site-ffnef ]; then
   git clone https://github.com/Neanderfunk/site-ffnef
 else
-  (cd gluon; git reset --hard; git pull)
+  (cd site-ffnef; git reset --hard; git pull)
 fi
 
 if [ ! -d site-ffho ]; then
   git clone https://git.c3pb.de/freifunk-pb/site-ffho.git
 else
-  (cd gluon; git reset --hard; git pull)
+  (cd site-ffho; git reset --hard; git pull)
 fi
 
 cd gluon
-
-if [ -d ../site-ffnef/ffnef-met ]; then
-  default_site=../site-ffnef/ffnef-met
-else
-  for sitedir in ../site-ffnef/*; do
-     default_site=$sitedir
-     break
-  done
-fi
-
 
 for sitedir in ../site-ffnef/*; do
   cp $sitedir/modules.incomplete $sitedir/modules
@@ -42,6 +32,7 @@ for sitedir in ../site-ffnef/*; do
   echo $params
   make update $params
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # not mentioned in doc
+  echo CONFIG_CCACHE=y >> include/config
   make GLUON_TARGET=ar71xx-generic $params V=s
   make manifest $params
 done
