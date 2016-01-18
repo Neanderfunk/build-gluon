@@ -22,13 +22,14 @@ fi
 
 cd gluon
 
-for sitedir in ../site-ffnef/*; do
+#for sitedir in ../site-ffnef/*; do
+for sitedir in ../site-ffnef/ffnef-met; do
   cp $sitedir/modules.incomplete $sitedir/modules
   grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
 
   outputdir=out/$(basename $sitedir)
   mkdir -p $outputdir
-  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$outputdir GLUON_BRANCH=experimental"
+  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=experimental"
   echo $params
   make update $params
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # not mentioned in doc
