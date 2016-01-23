@@ -22,6 +22,9 @@ fi
 
 cd gluon
 
+date >> ~/env
+export >> ~/env
+
 #for sitedir in ../site-ffnef/*; do
 for sitedir in ../site-ffnef/ffnef-met; do
   cp $sitedir/modules.incomplete $sitedir/modules
@@ -34,9 +37,17 @@ for sitedir in ../site-ffnef/ffnef-met; do
   make update $params
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # not mentioned in doc
   echo CONFIG_CCACHE=y >> include/config
-  make GLUON_TARGET=ar71xx-generic $params V=s
+  for target in \
+  	  ar71xx-generic ar71xx-nand mpc85xx-generic \
+	  x86-generic x86-kvm_guest x86-64 x86-xen_domu
+  do
+      make GLUON_TARGET=$target $params V=s
+  done
   make manifest $params
 done
+
+chmod go+rX -R $outputdir
+
 #contrib/sign.sh $SECRETKEY images/sysupgrade/experimental.manifest
 
 #rm -rf /where/to/put/this/experimental
