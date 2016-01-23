@@ -22,8 +22,9 @@ fi
 
 cd gluon
 
-date >> ~/env
-export >> ~/env
+if [ -d "$HOME/ccache" ]; then
+  export PATH="$HOME/ccache:$PATH"
+fi
 
 #for sitedir in ../site-ffnef/*; do
 for sitedir in ../site-ffnef/ffnef-met; do
