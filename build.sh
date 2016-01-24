@@ -36,7 +36,7 @@ for sitedir in ../site-ffnef/ffnef-met; do
   params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=experimental"
   echo $params
   make update $params
-  #make GLUON_TARGET=ar71xx-generic $params clean V=s # not mentioned in doc
+  #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
   echo CONFIG_CCACHE=y >> include/config
   for target in \
   	  ar71xx-generic ar71xx-nand mpc85xx-generic \
