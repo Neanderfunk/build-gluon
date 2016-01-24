@@ -50,6 +50,3 @@ done
 chmod go+rX -R $outputdir
 
 #contrib/sign.sh $SECRETKEY images/sysupgrade/experimental.manifest
-
-#rm -rf /where/to/put/this/experimental
-#cp -r images /where/to/put/this/experimental
