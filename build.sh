@@ -33,8 +33,8 @@ if [ -d "$HOME/ccache" ]; then
   export PATH="$HOME/ccache:$PATH"
 fi
 
-#for sitedir in ../site-ffnef/*; do
-for sitedir in ../site-ffnef/ffnef-met; do
+for sitedir in ../site-ffnef/*; do
+#for sitedir in ../site-ffnef/ffnef-met; do
   cp $sitedir/modules.incomplete $sitedir/modules
   grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
 
