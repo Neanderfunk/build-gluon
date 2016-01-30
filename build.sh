@@ -1,5 +1,12 @@
 #!/bin/sh
 
+revision="$1"
+branch="$1"
+
+cd $branch
+
+echo revision="$1" > build-info.txt
+
 set -e
 
 if [ ! -d gluon ]; then
