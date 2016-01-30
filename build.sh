@@ -1,13 +1,13 @@
 #!/bin/sh
 
+set -e
+
 revision="$1"
 branch="$2"
 
 cd $branch
 
 echo revision="$1" > build-info.txt
-
-set -e
 
 if [ ! -d gluon ]; then
   git clone https://github.com/freifunk-gluon/gluon -b v2015.1
@@ -16,7 +16,7 @@ else
 fi
 
 if [ ! -d site-ffnef ]; then
-  git clone https://github.com/Neanderfunk/site-ffnef
+  git clone https://github.com/Neanderfunk/site-ffnef -b $branch
 else
   (cd site-ffnef; git reset --hard; git pull)
 fi
@@ -40,7 +40,7 @@ for sitedir in ../site-ffnef/ffnef-met; do
 
   outputdir=out/$(basename $sitedir)
   mkdir -p $outputdir
-  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=experimental"
+  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=stable" # (sic, simply copy after testing)
   echo $params
   make update $params
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
