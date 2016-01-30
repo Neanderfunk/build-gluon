@@ -12,7 +12,7 @@ echo revision="$1" > build-info.txt
 if [ ! -d gluon ]; then
   git clone https://github.com/freifunk-gluon/gluon -b v2015.1
 else
-  (cd gluon; git reset --hard; git pull)
+  (cd gluon; git pull)
 fi
 
 if [ ! -d site-ffnef ]; then
