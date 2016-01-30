@@ -1,7 +1,7 @@
 #!/bin/sh
 
 revision="$1"
-branch="$1"
+branch="$2"
 
 cd $branch
 
@@ -10,7 +10,7 @@ echo revision="$1" > build-info.txt
 set -e
 
 if [ ! -d gluon ]; then
-  git clone https://github.com/freifunk-gluon/gluon
+  git clone https://github.com/freifunk-gluon/gluon -b v2015.1
 else
   (cd gluon; git reset --hard; git pull)
 fi
