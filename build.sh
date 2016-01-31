@@ -40,8 +40,7 @@ for sitedir in ../site-ffnef/ffnef-met ../site-ffnef/ffnef-rat; do
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
   echo CONFIG_CCACHE=y >> include/config
   for target in \
-  	  ar71xx-generic ar71xx-nand mpc85xx-generic \
-	  x86-generic x86-kvm_guest x86-64 x86-xen_domu
+  	  ar71xx-generic ar71xx-nand mpc85xx-generic
   do
   	  #echo $revision $params
       make GLUON_TARGET=$target $params V=s -j8
