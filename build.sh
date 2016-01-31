@@ -27,8 +27,8 @@ fi
 
 cd gluon
 
-#for sitedir in ../site-ffnef/*; do
-for sitedir in ../site-ffnef/ffnef-met ../site-ffnef/ffnef-rat; do
+for sitedir in ../site-ffnef/*; do
+#for sitedir in ../site-ffnef/ffnef-met ../site-ffnef/ffnef-rat; do
   cp $sitedir/modules.incomplete $sitedir/modules
   grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
 
