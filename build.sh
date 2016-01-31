@@ -10,13 +10,13 @@ cd $branch
 echo revision="$1" > build-info.txt
 
 if [ ! -d gluon ]; then
-  git clone https://github.com/freifunk-gluon/gluon -b v2015.1
+  git clone https://github.com/freifunk-gluon/gluon v2015.1
 else
   (cd gluon; git pull)
 fi
 
 if [ ! -d site-ffnef ]; then
-  git clone https://github.com/Neanderfunk/site-ffnef -b $branch
+  git clone https://github.com/Neanderfunk/site-ffnef $branch
 else
   (cd site-ffnef; git reset --hard; git pull)
 fi
