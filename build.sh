@@ -5,7 +5,7 @@ set -e
 revision="$1"
 branch="$2"
 
-GLUON_TARGETS=ar71xx-generic ar71xx-nand mpc85xx-generic
+GLUON_TARGETS="ar71xx-generic ar71xx-nand mpc85xx-generic"
 
 cd $branch
 
