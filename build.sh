@@ -11,7 +11,7 @@ cd $branch
 
 if [ ! -d gluon ]; then
   git clone --no-checkout https://github.com/freifunk-gluon/gluon
-  git checkout -b beta v2015.1.2
+  (cd gluon; git checkout -b beta v2015.1.2)
 fi
 
 #(cd gluon
