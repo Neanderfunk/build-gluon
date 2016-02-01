@@ -1,9 +1,11 @@
-#!/bin/sh
+##!/bin/sh
 
 set -e
 
 revision="$1"
 branch="$2"
+
+GLUON_TARGETS=ar71xx-generic ar71xx-nand mpc85xx-generic
 
 cd $branch
 
@@ -31,29 +33,24 @@ fi
 cd gluon
 mkdir -p out
 
-#for sitedir in ../site-ffnef/*; do
+for sitedir in ../site-ffnef/*; do
 #for sitedir in ../site-ffnef/ffnef-met ../site-ffnef/ffnef-rat; do
-for sitedir in ../site-ffnef/ffnef-met; do
+#for sitedir in ../site-ffnef/ffnef-met; do
   cp $sitedir/modules.incomplete $sitedir/modules
   #grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
 
   outputdir=out/$(basename $sitedir)
-  mkdir -p $outputdir
-  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=$branch"
+  mkdir -p $outputdir/images
+  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_IMAGEDIR=$PWD/$outputdir/images GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=$branch"
   echo params: $params
-  make update $params
-  make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
-  #echo CONFIG_CCACHE=y >> include/config
-  for target in \
-  	  ar71xx-generic ar71xx-nand mpc85xx-generic
+  #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
+  make GLUON_TARGET=$target update $params
+  for target in $GLUON_TARGETS
   do
-  	  #echo $revision $params
+	  #echo CONFIG_CCACHE=y >> include/config
       make GLUON_TARGET=$target $params V=s -j8
   done
   make manifest $params
-  if [ -d images ]; then # pre v2016.1 gluon does not know GLUON_OUTPUTDIR
-    mv images/* $outputdir
-  fi
 done
 
 chmod go+rX -R $outputdir
