@@ -2,6 +2,9 @@
 
 set -e
 
+umask
+umask 0022
+
 revision="$1"
 branch="$2"
 
