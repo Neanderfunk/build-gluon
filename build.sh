@@ -36,6 +36,8 @@ fi
 cd gluon
 mkdir -p out
 
+DID_CLEAN=""
+
 for sitedir in ../site-ffnef/*; do
 #for sitedir in ../site-ffnef/ffnef-met ../site-ffnef/ffnef-rat; do
 #for sitedir in ../site-ffnef/ffnef-met; do
@@ -46,9 +48,13 @@ for sitedir in ../site-ffnef/*; do
   mkdir -p $outputdir/images
   params="GLUON_SITEDIR=$PWD/$sitedir GLUON_IMAGEDIR=$PWD/$outputdir/images GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=$branch"
   echo params: $params
-  #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
   for target in $GLUON_TARGETS
   do
+  	  if [ -z "$DID_CLEAN" ]; then
+	    echo cleaning
+  	    GLUON_TARGET=$target $params clean V=s # really necessary?
+		DID_CLEAN=1
+	  fi
   	  make GLUON_TARGET=$target update $params
 	  #echo CONFIG_CCACHE=y >> include/config
       make GLUON_TARGET=$target $params V=s -j8
