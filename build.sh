@@ -36,7 +36,7 @@ mkdir -p out
 for sitedir in ../site-ffnef/*; do
 #for sitedir in ../site-ffnef/ffnef-met ../site-ffnef/ffnef-rat; do
 #for sitedir in ../site-ffnef/ffnef-met; do
-  cp $sitedir/modules.incomplete $sitedir/modules
+  #cp $sitedir/modules.incomplete $sitedir/modules
   #grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
 
   outputdir=out/$(basename $sitedir)
@@ -44,9 +44,9 @@ for sitedir in ../site-ffnef/*; do
   params="GLUON_SITEDIR=$PWD/$sitedir GLUON_IMAGEDIR=$PWD/$outputdir/images GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=$branch"
   echo params: $params
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
-  make GLUON_TARGET=$target update $params
   for target in $GLUON_TARGETS
   do
+  	  make GLUON_TARGET=$target update $params
 	  #echo CONFIG_CCACHE=y >> include/config
       make GLUON_TARGET=$target $params V=s -j8
   done
