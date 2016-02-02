@@ -52,7 +52,7 @@ for sitedir in ../site-ffnef/*; do
   do
   	  if [ -z "$DID_CLEAN" ]; then
 	    echo cleaning
-  	    make GLUON_TARGET=$target $params clean V=s # really necessary?
+  	    make GLUON_TARGET=$target $params clean V=s || true # fails before first make update
 		DID_CLEAN=1
 	  fi
   	  make GLUON_TARGET=$target update $params
