@@ -2,6 +2,15 @@
 
 set -e
 
+umask 0022
+
+revision="$1"
+branch="$2"
+
+GLUON_TARGETS="ar71xx-generic ar71xx-nand mpc85xx-generic \
+x86-generic x86-kvm_guest x86-64 x86-xen_domu"
+
+cd $branch
 if [ ! -d gluon ]; then
   git clone https://github.com/freifunk-gluon/gluon
 else
@@ -39,8 +48,6 @@ for sitedir in ../site-ffnef/ffnef-met; do
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
   echo CONFIG_CCACHE=y >> include/config
   for target in \
-  	  ar71xx-generic ar71xx-nand mpc85xx-generic \
-	  x86-generic x86-kvm_guest x86-64 x86-xen_domu
   do
       make GLUON_TARGET=$target $params V=s
   done
