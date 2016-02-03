@@ -47,7 +47,7 @@ for sitedir in ../site-ffnef/ffnef-met; do
   make update $params
   #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
   echo CONFIG_CCACHE=y >> include/config
-  for target in \
+  for target in $GLUON_TARGETS
   do
       make GLUON_TARGET=$target $params V=s
   done
