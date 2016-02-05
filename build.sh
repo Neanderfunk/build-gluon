@@ -35,23 +35,36 @@ if [ -d "$HOME/ccache" ]; then
   export PATH="$HOME/ccache:$PATH"
 fi
 
+first_run=true
+
 for sitedir in ../site-ffnef/*; do
 #for sitedir in ../site-ffnef/ffnef-met; do
-  cp $sitedir/modules.incomplete $sitedir/modules
-  grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
-
   outputdir=out/$(basename $sitedir)
+  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=experimental V=s"
   mkdir -p $outputdir
-  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=experimental"
-  echo $params
-  make update $params
-  #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
-  echo CONFIG_CCACHE=y >> include/config
-  for target in $GLUON_TARGETS
+
+  if $first_run; then
+    cp $sitedir/modules.incomplete $sitedir/modules
+    grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
+  
+    make update $params
+    #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
+    echo CONFIG_CCACHE=y >> include/config
+  fi
+
+  for gluon_target in $GLUON_TARGETS
   do
-      make GLUON_TARGET=$target $params V=s
+  	  if $first_run; then
+      	make GLUON_TARGET=$gluon_target $params
+		first_modules=$outputdir/modules
+	  else
+      	make GLUON_TARGET=$gluon_target $params images
+		rm -rf $outputdir/modules
+		ln -s $first_modules $outputdir/modules
+	  fi
   done
   make manifest $params
+  if $first_run; then first_run=false; fi
 done
 
 chmod go+rX -R $outputdir
