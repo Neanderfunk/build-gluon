@@ -12,9 +12,9 @@ x86-generic x86-kvm_guest x86-64 x86-xen_domu"
 
 cd $branch
 if [ ! -d gluon ]; then
-  git clone https://github.com/freifunk-gluon/gluon
+  git clone https://github.com/freifunk-gluon/gluon v2016.1.x
 else
-  (cd gluon; git reset --hard; git pull)
+  (cd gluon; git reset --hard; git pull origin v2016.1.x)
 fi
 
 if [ ! -d site-ffnef ]; then
