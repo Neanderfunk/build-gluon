@@ -20,7 +20,7 @@ else
 fi
 
 if [ ! -d site-ffnef ]; then
-  git clone https://github.com/Neanderfunk/site-ffnef
+  git clone -b v2016.1.x https://github.com/Neanderfunk/site-ffnef
 else
   (cd site-ffnef; git reset --hard; git pull)
 fi
