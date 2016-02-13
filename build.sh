@@ -10,6 +10,8 @@ branch="$2"
 GLUON_TARGETS="ar71xx-generic ar71xx-nand mpc85xx-generic \
 x86-generic x86-kvm_guest x86-64 x86-xen_domu"
 
+gluon_release=$(shell date '+%Y%m%d%H%M')-exp # same release for every community
+
 cd $branch
 if [ ! -d gluon ]; then
   git clone -b v2016.1.x https://github.com/freifunk-gluon/gluon
@@ -40,7 +42,8 @@ first_run=true
 for sitedir in ../site-ffnef/*; do
 #for sitedir in ../site-ffnef/ffnef-met; do
   outputdir=out/$(basename $sitedir)
-  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir GLUON_BRANCH=experimental V=s"
+  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir \
+	GLUON_RELEASE=$gluon_release GLUON_BRANCH=experimental V=s"
   mkdir -p $outputdir
 
   if $first_run; then
