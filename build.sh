@@ -10,7 +10,7 @@ branch="$2"
 GLUON_TARGETS="ar71xx-generic ar71xx-nand mpc85xx-generic \
 x86-generic x86-kvm_guest x86-64 x86-xen_domu"
 
-gluon_release=$(date '+%Y%m%d%H%M-broken') # same release for every community
+gluon_release=$(date '+%Y%m%d%H%M-stable') # same release for every community
 
 cd $branch
 if [ ! -d gluon ]; then
@@ -43,7 +43,7 @@ for sitedir in ../site-ffnef/*; do
 #for sitedir in ../site-ffnef/ffnef-met; do
   outputdir=out/$(basename $sitedir)
   params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir \
-	GLUON_RELEASE=$gluon_release GLUON_BRANCH=experimental V=s"
+	GLUON_RELEASE=$gluon_release GLUON_BRANCH=stable V=s"
   mkdir -p $outputdir
 
   if $first_run; then
@@ -72,4 +72,4 @@ done
 
 chmod go+rX -R $outputdir
 
-#contrib/sign.sh $SECRETKEY images/sysupgrade/experimental.manifest
+#contrib/sign.sh $SECRETKEY images/sysupgrade/stable.manifest
