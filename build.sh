@@ -63,7 +63,7 @@ for sitedir in ../site-ffnef/*; do
 	  else
       	make GLUON_TARGET=$gluon_target $params images
 		rm -rf $outputdir/modules
-		ln -s $first_modules $outputdir/modules
+		ln -s ../../$first_modules $outputdir/modules
 	  fi
   done
   make manifest $params
