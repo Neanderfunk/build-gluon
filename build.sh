@@ -41,10 +41,14 @@ first_run=true
 
 for sitedir in ../site-ffnef/*; do
 #for sitedir in ../site-ffnef/ffnef-met; do
-  outputdir=out/$(basename $sitedir)
-  params="GLUON_SITEDIR=$PWD/$sitedir GLUON_OUTPUTDIR=$PWD/$outputdir \
+  imagedir=out/$(basename $sitedir)
+  moduledir=out/modules
+
+  params="GLUON_SITEDIR=$PWD/$sitedir \
+	GLUON_MODULEDIR=$PWD/$moduledir \
+	GLUON_IMAGEDIR=$PWD/$imagedir \
 	GLUON_RELEASE=$gluon_release GLUON_BRANCH=stable V=s"
-  mkdir -p $outputdir
+  mkdir -p $imagedir $moduledir
 
   if $first_run; then
     cp $sitedir/modules.incomplete $sitedir/modules
@@ -59,17 +63,14 @@ for sitedir in ../site-ffnef/*; do
   do
   	  if $first_run; then
       	make GLUON_TARGET=$gluon_target $params
-		first_modules=$outputdir/modules
 	  else
       	make GLUON_TARGET=$gluon_target $params images
-		rm -rf $outputdir/modules
-		ln -s ../../$first_modules $outputdir/modules
 	  fi
   done
   make manifest $params
   if $first_run; then first_run=false; fi
 done
 
-chmod go+rX -R $outputdir
+chmod go+rX -R $imagedir
 
 #contrib/sign.sh $SECRETKEY images/sysupgrade/stable.manifest
