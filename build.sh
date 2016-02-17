@@ -56,6 +56,7 @@ for sitedir in ../site-ffnef/*; do
   
     make update $params
     #make GLUON_TARGET=ar71xx-generic $params clean V=s # really necessary?
+	rm -rf build/*/profiles/*/root/
     echo CONFIG_CCACHE=y >> include/config
   fi
 
