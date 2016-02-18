@@ -46,10 +46,12 @@ for sitedir in ../site-ffnef/*; do
   imagedir=out/$(basename $sitedir)
   moduledir=out/modules
 
-  params="GLUON_SITEDIR=$PWD/$sitedir \
+  params0="GLUON_SITEDIR=$PWD/$sitedir \
 	GLUON_MODULEDIR=$PWD/$moduledir \
 	GLUON_IMAGEDIR=$PWD/$imagedir \
-	GLUON_RELEASE=$gluon_release GLUON_BRANCH=stable V=s"
+	GLUON_RELEASE=$gluon_release V=s"
+  params="$params0 GLUON_BRANCH=stable"
+
   mkdir -p $imagedir $moduledir
   
   rm -rf build/*/profiles/*/root/
@@ -68,10 +70,11 @@ for sitedir in ../site-ffnef/*; do
   	  if $first_run; then
       	make GLUON_TARGET=$gluon_target $params
 	  else
-      	make GLUON_TARGET=$gluon_target $params images
+      	make GLUON_TARGET=$gluon_target $params prepare images
 	  fi
   done
-  make manifest $params
+  make manifest $params0 GLUON_BRANCH=stable
+  make manifest $params0 GLUON_BRANCH=beta
   if $first_run; then first_run=false; fi
 done
 
