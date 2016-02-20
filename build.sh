@@ -10,7 +10,7 @@ branch="$2"
 GLUON_TARGETS="ar71xx-generic ar71xx-nand mpc85xx-generic \
 x86-generic x86-kvm_guest x86-64 x86-xen_domu"
 
-GLUON_TARGETS=ar71xx-generic
+#GLUON_TARGETS=ar71xx-generic
 
 gluon_release=$(date '+%Y%m%d%H%M-stable') # same release for every community
 
