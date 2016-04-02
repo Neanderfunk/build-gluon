@@ -12,7 +12,7 @@ x86-generic x86-kvm_guest x86-64 x86-xen_domu"
 
 #GLUON_TARGETS=ar71xx-generic
 
-gluon_release=$(date '+%Y%m%d%H%M-stable') # same release for every community
+gluon_release=$(date '+%Y%m%d%H%M') # same release for every community
 
 cd $branch
 if [ ! -d gluon ]; then
@@ -75,6 +75,7 @@ for sitedir in ../site-ffnef/*; do
   done
   make manifest $params0 GLUON_BRANCH=stable
   make manifest $params0 GLUON_BRANCH=beta
+  make manifest $params0 GLUON_BRANCH=experimental
   if $first_run; then first_run=false; fi
 done
 
