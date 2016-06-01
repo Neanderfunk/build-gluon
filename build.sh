@@ -14,12 +14,17 @@ x86-generic x86-kvm_guest x86-64 x86-xen_domu"
 
 gluon_release=$(date '+%Y%m%d%H%M') # same release for every community
 
+signing_key=6664E7BDA6B669881EC52E7516EF3F64CB201D9C # Matthias Schiffer <mschiffer@universe-factory.net>
+gpg --recv-key $signing_key
+
 cd $branch
 if [ ! -d gluon ]; then
   git clone -b v2016.1.x https://github.com/freifunk-gluon/gluon
 else
   (cd gluon; git reset --hard; git pull origin v2016.1.x)
 fi
+
+(cd gluon; git verify-commit --raw v2016.1.x 2>&1)|grep  "^\[GNUPG:\] VALIDSIG $signing_key"
 
 if [ ! -d site-ffnef ]; then
   git clone -b v2016.1.x https://github.com/Neanderfunk/site-ffnef
