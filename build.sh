@@ -66,13 +66,13 @@ for sitedir in ../site-ffnef/*; do
     grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
   
     make update $params
-    make GLUON_TARGET=ar71xx-generic $params clean V=s
-    echo CONFIG_CCACHE=y >> include/config
   fi
 
   for gluon_target in $GLUON_TARGETS
   do
   	  if $first_run; then
+	make GLUON_TARGET=$gluon_target $params clean V=s
+	echo CONFIG_CCACHE=y >> include/config
       	make GLUON_TARGET=$gluon_target $params
 	  else
       	make GLUON_TARGET=$gluon_target $params prepare images
