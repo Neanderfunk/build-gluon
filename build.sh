@@ -71,12 +71,10 @@ for sitedir in ../site-ffnef/*; do
   for gluon_target in $GLUON_TARGETS
   do
   	  if $first_run; then
-	make GLUON_TARGET=$gluon_target $params clean V=s
-	echo CONFIG_CCACHE=y >> include/config
-      	make GLUON_TARGET=$gluon_target $params
-	  else
-      	make GLUON_TARGET=$gluon_target $params prepare images
+	    make GLUON_TARGET=$gluon_target $params clean V=s
 	  fi
+
+     make GLUON_TARGET=$gluon_target $params
   done
   make manifest $params0 GLUON_BRANCH=stable
   make manifest $params0 GLUON_BRANCH=beta
