@@ -19,15 +19,15 @@ gpg --recv-key $signing_key
 
 cd $branch
 if [ ! -d gluon ]; then
-  git clone -b v2016.1.x https://github.com/freifunk-gluon/gluon
+  git clone -b v2016.2.x https://github.com/freifunk-gluon/gluon
 else
-  (cd gluon; git reset --hard; git pull origin v2016.1.x)
+  (cd gluon; git reset --hard; git pull origin v2016.2.x)
 fi
 
-(cd gluon; git verify-commit --raw v2016.1.x 2>&1)|grep  "^\[GNUPG:\] VALIDSIG $signing_key"
+(cd gluon; git verify-commit --raw v2016.2.x 2>&1)|grep  "^\[GNUPG:\] VALIDSIG $signing_key"
 
 if [ ! -d site-ffnef ]; then
-  git clone -b v2016.1.x https://github.com/Neanderfunk/site-ffnef
+  git clone -b v2016.2.x https://github.com/Neanderfunk/site-ffnef
 else
   (cd site-ffnef; git reset --hard; git pull)
 fi
