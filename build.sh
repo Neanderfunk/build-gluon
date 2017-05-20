@@ -32,11 +32,11 @@ else
   (cd site-ffnef; git reset --hard; git pull)
 fi
 
-if [ ! -d site-ffho ]; then
-  git clone https://git.c3pb.de/freifunk-pb/site-ffho.git
-else
-  (cd site-ffho; git reset --hard; git pull)
-fi
+#if [ ! -d site-ffho ]; then
+#  git clone https://git.c3pb.de/freifunk-pb/site-ffho.git
+#else
+#  (cd site-ffho; git reset --hard; git pull)
+#fi
 
 cd gluon
 
@@ -63,7 +63,7 @@ for sitedir in ../site-ffnef/*; do
 
   if $first_run; then
     cp $sitedir/modules.incomplete $sitedir/modules
-    grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
+    #grep -v ^GLUON_SITE_FEEDS= ../site-ffho/modules >> $sitedir/modules
   
     make update $params
   fi
